@@ -9,45 +9,22 @@ import java.util.Random;
 
 public class ProbabilityCommand implements CommandExecutor {
 
-    // プラグインのON/OFF状態を管理するフラグ
-    private static boolean isPluginEnabled = true;
-
     // プレフィックスの定義（ここにカラーコードも含める）
     private static final String PREFIX = "§b[ProbabilitySimulator]§r ";
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // /probability on コマンド
-        if (args.length == 1 && args[0].equalsIgnoreCase("on")) {
-            isPluginEnabled = true;
-            sender.sendMessage(PREFIX + "§aプラグインがONになりました。試行コマンドが使用できます。");
-            return true;
-        }
-
-        // /probability off コマンド
-        if (args.length == 1 && args[0].equalsIgnoreCase("off")) {
-            isPluginEnabled = false;
-            sender.sendMessage(PREFIX + "§cプラグインがOFFになりました。試行コマンドは使用できません。");
-            return true;
-        }
-
         // /probability help コマンド
         if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
             sendHelpMessage(sender);
             return true;
         }
 
-        // プラグインがOFFの場合、試行コマンドを使わせない
-        if (!isPluginEnabled) {
-            sender.sendMessage(PREFIX + "§cプラグインがOFFのため、試行コマンドは使用できません。");
-            return false;
-        }
-
         // コマンドを実行したのがプレイヤーであることを確認
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            // 引数が2つ以上必要
+            // 引数が2つ必要
             if (args.length != 2) {
                 player.sendMessage(PREFIX + "§e正しいコマンド形式は /probability simulator <確率(0.00001〜1)> <試行回数> です。");
                 return false;
@@ -120,15 +97,8 @@ public class ProbabilityCommand implements CommandExecutor {
 
     // ヘルプメッセージを送信するメソッド
     private void sendHelpMessage(CommandSender sender) {
-        sender.sendMessage(PREFIX + "§e[ProbabilitySimulator] プラグインの使い方:");
-        sender.sendMessage(PREFIX + "§b/probability on §e- プラグインをONにします。");
-        sender.sendMessage(PREFIX + "§b/probability off §e- プラグインをOFFにします。");
+        sender.sendMessage(PREFIX + "§eプラグインの使い方:");
         sender.sendMessage(PREFIX + "§b/probability simulator <確率(0.00001〜1)> <試行回数> §e- 指定した確率で試行を行い、結果を表示します。");
         sender.sendMessage(PREFIX + "§b/probability help §e- このヘルプを表示します。");
-    }
-
-    // プラグインのON/OFF状態を取得するメソッド
-    public static boolean isPluginEnabled() {
-        return isPluginEnabled;
     }
 }
