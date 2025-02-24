@@ -1,0 +1,19 @@
+name: ProbabilitySimulator
+version: 1.0
+main: com.example.probabilitysimulator.Main
+api-version: 1.20
+authors: [ woxloi ]
+
+commands:
+  probability:
+    description: 確率シミュレーションを実行します。
+    usage: /probability simulator <確率(0.00001〜1)> <試行回数>
+  probabilityon:
+    description: プラグインをONにします。
+    usage: /probability on
+  probabilityoff:
+    description: プラグインをOFFにします。
+    usage: /probability off
+  probabilityhelp:
+    description: ヘルプメッセージを表示します。
+    usage: /probability help
